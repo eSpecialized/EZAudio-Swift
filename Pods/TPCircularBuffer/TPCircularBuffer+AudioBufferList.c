@@ -55,7 +55,7 @@ AudioBufferList *TPCircularBufferPrepareEmptyAudioBufferList(TPCircularBuffer *b
     }
     
     // Make sure whole buffer (including timestamp and length value) is 16-byte aligned in length
-    block->totalLength = align16byte(dataPtr - (char*)block);
+    block->totalLength = (uint32_t) ( align16byte(dataPtr - (char*)block));
     if ( block->totalLength > availableBytes ) {
         return NULL;
     }
@@ -73,10 +73,10 @@ void TPCircularBufferProduceAudioBufferList(TPCircularBuffer *buffer, const Audi
         memcpy(&block->timestamp, inTimestamp, sizeof(AudioTimeStamp));
     }
     
-    UInt32 calculatedLength = ((char*)block->bufferList.mBuffers[block->bufferList.mNumberBuffers-1].mData + block->bufferList.mBuffers[block->bufferList.mNumberBuffers-1].mDataByteSize) - (char*)block;
+    UInt32 calculatedLength = (UInt32) (((char*)block->bufferList.mBuffers[block->bufferList.mNumberBuffers-1].mData + block->bufferList.mBuffers[block->bufferList.mNumberBuffers-1].mDataByteSize) - (char*)block);
 
     // Make sure whole buffer (including timestamp and length value) is 16-byte aligned in length
-    calculatedLength = align16byte(calculatedLength);
+    calculatedLength =(UInt32) ( align16byte(calculatedLength));
     
     assert(calculatedLength <= block->totalLength && calculatedLength <= availableBytes);
     
@@ -135,7 +135,7 @@ void TPCircularBufferConsumeNextBufferListPartial(TPCircularBuffer *buffer, int 
     if ( !block ) return;
     assert(!((unsigned long)block & 0xF)); // Beware unaligned accesses
     
-    int bytesToConsume = min(framesToConsume * audioFormat->mBytesPerFrame, block->bufferList.mBuffers[0].mDataByteSize);
+    int bytesToConsume = (int) (min(framesToConsume * audioFormat->mBytesPerFrame, block->bufferList.mBuffers[0].mDataByteSize));
     
     if ( bytesToConsume == block->bufferList.mBuffers[0].mDataByteSize ) {
         TPCircularBufferConsumeNextBufferList(buffer);
@@ -173,7 +173,7 @@ void TPCircularBufferDequeueBufferListFrames(TPCircularBuffer *buffer, UInt32 *i
         hasTimestamp = true;
         if ( !bufferList ) break;
         
-        UInt32 bytesToCopy = min(bytesToGo, bufferList->mBuffers[0].mDataByteSize);
+        UInt32 bytesToCopy = (UInt32) ( min(bytesToGo, bufferList->mBuffers[0].mDataByteSize));
         
         if ( outputBufferList ) {
             for ( int i=0; i<outputBufferList->mNumberBuffers; i++ ) {

@@ -16,15 +16,15 @@ class ViewController: UIViewController, EZMicrophoneDelegate {
     // MARK: Properties
     //------------------------------------------------------------------------------
     
-    @IBOutlet weak var plot: EZAudioPlotGL?;
-    var microphone: EZMicrophone!;
+    @IBOutlet weak var plot: EZAudioPlotGL!
+    var microphone: EZMicrophone!
     
     //------------------------------------------------------------------------------
     // MARK: Status Bar Style
     //------------------------------------------------------------------------------
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent;
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent;
     }
     
     //------------------------------------------------------------------------------
@@ -40,20 +40,19 @@ class ViewController: UIViewController, EZMicrophoneDelegate {
     // MARK: Actions
     //------------------------------------------------------------------------------
     
-    @IBAction func changedPlotType(sender: UISegmentedControl) {
-        var plotType: EZPlotType = EZPlotType(rawValue: sender.selectedSegmentIndex)!;
-        plot?.plotType = plotType;
+    @IBAction func changedPlotType(_ sender: UISegmentedControl) {
+        let plotType: EZPlotType = EZPlotType(rawValue: sender.selectedSegmentIndex)!;
+        plot.plotType = plotType;
         switch plotType {
-        case EZPlotType.Buffer:
-            plot?.shouldFill = false;
-            plot?.shouldMirror = false;
+        case EZPlotType.buffer:
+            plot.shouldFill = false;
+            plot.shouldMirror = false;
             break;
-        case EZPlotType.Rolling:
-            plot?.shouldFill = true;
-            plot?.shouldMirror = true;
+        case EZPlotType.rolling:
+            plot.shouldFill = true;
+            plot.shouldMirror = true;
             break;
-        default:
-            break;
+
         }
     }
 
@@ -61,11 +60,12 @@ class ViewController: UIViewController, EZMicrophoneDelegate {
     // MARK: EZMicrophoneDelegate
     //------------------------------------------------------------------------------
 
-    func microphone(microphone: EZMicrophone!, hasAudioReceived buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>>, withBufferSize bufferSize: UInt32, withNumberOfChannels numberOfChannels: UInt32) {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            plot?.updateBuffer(buffer[0], withBufferSize: bufferSize);
+    func microphone(_ microphone: EZMicrophone!, hasAudioReceived buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>?>!, withBufferSize bufferSize: UInt32, withNumberOfChannels numberOfChannels: UInt32) {
+        DispatchQueue.main.async(execute: { [unowned self] () -> Void in
+            self.plot.updateBuffer(buffer[0], withBufferSize: bufferSize);
         });
     }
+    
     
 }
 
