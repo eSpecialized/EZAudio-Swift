@@ -40,6 +40,7 @@
 		66E9756F1B4F279F003FB443 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66E975701B4F279F003FB443 /* EZAudio_SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EZAudio_SwiftTests.swift; sourceTree = "<group>"; };
 		66E9757A1B4F2952003FB443 /* EZAudio-Swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "EZAudio-Swift-Bridging-Header.h"; path = "../EZAudio-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		D4FA4A9D1EA1251B00367146 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D7C42C6EA9F905947A4DB3E8 /* libPods-EZAudio-Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EZAudio-Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,6 +83,7 @@
 		66E9754C1B4F279F003FB443 = {
 			isa = PBXGroup;
 			children = (
+				D4FA4A9D1EA1251B00367146 /* README.md */,
 				66E975571B4F279F003FB443 /* EZAudio-Swift */,
 				66E9756D1B4F279F003FB443 /* EZAudio-SwiftTests */,
 				66E975561B4F279F003FB443 /* Products */,

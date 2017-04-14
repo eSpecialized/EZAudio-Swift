@@ -7,8 +7,7 @@
 //
 
 import UIKit
-
-
+import AVFoundation
 
 class ViewController: UIViewController, EZMicrophoneDelegate {
 
@@ -33,7 +32,18 @@ class ViewController: UIViewController, EZMicrophoneDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        microphone = EZMicrophone(delegate: self, startsImmediately: true);
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            microphone = EZMicrophone(delegate: self, startsImmediately: true);
+            
+        } catch let error {
+            print(error)
+        }
+        
+        
     }
     
     //------------------------------------------------------------------------------
